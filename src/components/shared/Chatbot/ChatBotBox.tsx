@@ -71,10 +71,12 @@ const ChatbotBox: React.FC<TMessageProps> = ({ setIsOpen }) => {
   return (
     <PopoverContent
       className={`${
-        isMinimized ? "w-[26vw] h-[65vh]" : "w-[40vw] h-[82vh]"
+        !isMinimized
+          ? "lg:w-[26vw] 100vw h-[65vh]"
+          : "lg:w-[40vw] 100vw h-[82vh]"
       } shadow-xl bg-white rounded-lg border mr-8 mb-3 transition-all duration-300`}
     >
-      <div className="flex flex-col h-full">
+      <div className="flex w-full flex-col h-full">
         <div className="mb-4 flex justify-between items-center border-b pb-2">
           <div className="flex items-center">
             <RiRobot2Fill

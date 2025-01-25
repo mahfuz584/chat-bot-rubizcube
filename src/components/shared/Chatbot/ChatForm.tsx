@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TChatFormProps } from "@/propsTypes";
+import EmojiPicker from "emoji-picker-react";
 import React, { useRef, useState } from "react";
-
 import { IoMdSend } from "react-icons/io";
 
 const ChatForm: React.FC<TChatFormProps> = ({
@@ -10,11 +11,14 @@ const ChatForm: React.FC<TChatFormProps> = ({
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState("");
+  const [isEmojiPickerVisible, setEmojiPickerVisible] = useState(false);
 
+  //uer input form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const userMsg = inputRef?.current?.value?.trim();
+    const userMsg = inputValue.trim();
     if (!userMsg) return;
+    setInputValue("");
     if (inputRef.current) {
       inputRef.current.value = "";
     }
@@ -33,10 +37,18 @@ const ChatForm: React.FC<TChatFormProps> = ({
       ]);
     }, 500);
   };
+
+  //emoji picker
+  const handleEmojiClick = (emojiData: any) => {
+    setInputValue((prev) => prev + emojiData.emoji);
+    inputRef.current?.focus();
+    setEmojiPickerVisible(false);
+  };
   return (
     <div className="mt-4 relative">
       <form onSubmit={handleSubmit}>
         <input
+          value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           ref={inputRef}
           type="text"
@@ -57,7 +69,21 @@ const ChatForm: React.FC<TChatFormProps> = ({
             color={inputValue.trim() === "" ? "gray" : "#7700FF"}
           />
         </button>
+        <button
+          type="button"
+          onClick={() => setEmojiPickerVisible(!isEmojiPickerVisible)}
+          className="absolute text-xl top-1/2 -translate-y-1/2 right-10 text-gray-500 hover:text-gray-700"
+          aria-label="Add Emoji"
+        >
+          😊
+        </button>
       </form>
+      {/* Emoji Picker */}
+      {isEmojiPickerVisible && (
+        <div className="">
+          <EmojiPicker onEmojiClick={handleEmojiClick} />
+        </div>
+      )}
     </div>
   );
 };
