@@ -1,10 +1,15 @@
 import { TChatFormProps } from "@/propsTypes";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 
 import { IoMdSend } from "react-icons/io";
 
-const ChatForm: React.FC<TChatFormProps> = ({ setChatHistory }) => {
+const ChatForm: React.FC<TChatFormProps> = ({
+  setChatHistory,
+  generateChatbotResponse,
+  chatHistory,
+}) => {
   const inputRef = useRef<HTMLInputElement>(null);
+  const [inputValue, setInputValue] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -20,14 +25,19 @@ const ChatForm: React.FC<TChatFormProps> = ({ setChatHistory }) => {
       //chatbot reply
       setChatHistory((prev) => [
         ...prev,
-        { role: "system", message: "I am a chatbot" },
+        { role: "model", message: `loading....` },
       ]);
-    }, 1000);
+      generateChatbotResponse([
+        ...chatHistory,
+        { role: "user", message: userMsg },
+      ]);
+    }, 500);
   };
   return (
     <div className="mt-4 relative">
       <form onSubmit={handleSubmit}>
         <input
+          onChange={(e) => setInputValue(e.target.value)}
           ref={inputRef}
           type="text"
           placeholder="Type your message..."
@@ -35,10 +45,17 @@ const ChatForm: React.FC<TChatFormProps> = ({ setChatHistory }) => {
         />
         <button
           type="submit"
-          className="absolute top-1/2 -translate-y-1/2 right-2 text-blue-500 hover:text-blue-600"
+          className={`absolute top-1/2 -translate-y-1/2 right-2 text-blue-500 hover:text-blue-600 transition-all duration-500 ${
+            inputValue.trim() !== "" ? "hover:scale-125" : ""
+          }`}
           aria-label="Send Message"
+          disabled={inputValue.trim() === ""}
         >
-          <IoMdSend className="" size={22} color="#7700FF" />
+          <IoMdSend
+            className=""
+            size={22}
+            color={inputValue.trim() === "" ? "gray" : "#7700FF"}
+          />
         </button>
       </form>
     </div>

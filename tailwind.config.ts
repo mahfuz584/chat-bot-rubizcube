@@ -13,6 +13,9 @@ export default {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         brandColor: "#7700FF",
+        bgWhite: "#fff",
+        bgLimeWhite: "#FFFFF0",
+        bgBlack: "#273037",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
@@ -56,6 +59,16 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      animation: {
+        "vertical-ping": "verticalPing 1.5s ease-in-out infinite",
+      },
+      keyframes: {
+        verticalPing: {
+          "0%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(8px)" },
+          "100%": { transform: "translateY(0)" },
+        },
       },
     },
   },

@@ -25,7 +25,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning className="!scroll-smooth">
       <body
         className={cn(
-          `bg-white dark:bg-black font-sans antialiased ${geistSans.variable} `
+          `bg-bgWhite dark:bg-bgBlack font-sans antialiased ${geistSans.variable} `
         )}
       >
         <ThemeProvider>
