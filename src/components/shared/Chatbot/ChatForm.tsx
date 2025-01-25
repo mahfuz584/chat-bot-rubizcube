@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { TChatFormProps } from "@/propsTypes";
 import EmojiPicker from "emoji-picker-react";
 import React, { useRef, useState } from "react";
