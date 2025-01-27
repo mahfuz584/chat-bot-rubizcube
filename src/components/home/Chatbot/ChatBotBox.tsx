@@ -18,7 +18,6 @@ const ChatbotBox: React.FC<TMessageProps> = ({ setIsOpen }) => {
   };
   const closePopover = () => {
     setIsOpen(false);
-    setIsMinimized(true);
   };
 
   useEffect(() => {
@@ -34,8 +33,8 @@ const ChatbotBox: React.FC<TMessageProps> = ({ setIsOpen }) => {
     <PopoverContent
       className={`${
         !isMinimized
-          ? "lg:w-[26vw] 100vw h-[65vh]"
-          : "lg:w-[40vw] 100vw h-[82vh]"
+          ? "lg:w-[26vw] w-[90vw] h-[65vh]"
+          : "lg:w-[40vw] w-[100vw] h-[82vh]"
       } shadow-xl bg-white rounded-lg border mr-8 mb-3 transition-all duration-300`}
     >
       <div className="flex w-full flex-col h-full">
