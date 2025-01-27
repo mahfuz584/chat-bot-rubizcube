@@ -18,7 +18,7 @@ yarn
 ### Create ENV
 ```bash
 # Create a .env file in the root directory and add your Gemini API key:
-GEMINI_API_KEY=your-openai-api-key
+GOOGLE_GENERATIVE_AI_API_KEY=your-openai-api-key
 ```
 ### Start the development server:
 ```bash
