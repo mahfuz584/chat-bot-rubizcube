@@ -1,16 +1,18 @@
 import { PopoverContent } from "@/components/ui/popover";
-import { TChatHistory, TMessageProps } from "@/propsTypes";
-import { fetchBotResponse } from "@/serverActions";
+import { TMessageProps } from "@/propsTypes";
+import { useChat } from "ai/react";
 import React, { useEffect, useRef, useState } from "react";
 import { LuMaximize2, LuMinimize2 } from "react-icons/lu";
 import { RiRobot2Fill } from "react-icons/ri";
 import ChatForm from "./ChatForm";
 import ChatMsg from "./ChatMsg";
-
 const ChatbotBox: React.FC<TMessageProps> = ({ setIsOpen }) => {
   const [isMinimized, setIsMinimized] = useState(false);
-  const [chatHistory, setChatHistory] = useState<TChatHistory[]>([]);
+
   const chatBodyRef = useRef<HTMLDivElement>(null);
+  const { messages, input, handleInputChange, handleSubmit, isLoading } =
+    useChat();
+  console.log(messages);
 
   const handleMinimize = () => {
     setIsMinimized(!isMinimized);
@@ -27,46 +29,7 @@ const ChatbotBox: React.FC<TMessageProps> = ({ setIsOpen }) => {
         behavior: "smooth",
       });
     }
-  }, [chatHistory]);
-
-  const generateChatbotResponse = async (chatHistory: TChatHistory[]) => {
-    const updateChatHistory = (text: string) => {
-      setChatHistory((prev) => [
-        ...prev.filter((msg) => msg.message !== "loading...."),
-        { role: "model", message: text },
-      ]);
-    };
-    const history = chatHistory?.map(({ role, message }) => {
-      return {
-        role,
-        parts: [
-          {
-            text: message,
-          },
-        ],
-      };
-    });
-
-    try {
-      const response = await fetchBotResponse(history);
-      const rawchatbotResponse =
-        response?.candidates?.[0]?.content?.parts?.[0]?.text.replace();
-
-      const chatbotResponse = rawchatbotResponse
-        ?.trim()
-        .replace(/\s+/g, " ")
-        .replace(
-          /(^|\.\s*)([a-z])/g,
-          (p1: string, p2: string) => p1 + p2.toUpperCase()
-        );
-
-      if (chatbotResponse) {
-        updateChatHistory(chatbotResponse);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  }, [messages]);
 
   return (
     <PopoverContent
@@ -119,13 +82,13 @@ const ChatbotBox: React.FC<TMessageProps> = ({ setIsOpen }) => {
           ref={chatBodyRef}
           className="flex-1 overflow-y-auto"
         >
-          <ChatMsg chatHistory={chatHistory} />
+          <ChatMsg messages={messages} isLoading={isLoading} />
         </div>
         {/* Chat Form */}
         <ChatForm
-          chatHistory={chatHistory}
-          setChatHistory={setChatHistory}
-          generateChatbotResponse={generateChatbotResponse}
+          handleSubmit={handleSubmit}
+          input={input}
+          handleInputChange={handleInputChange}
         />
       </div>
     </PopoverContent>

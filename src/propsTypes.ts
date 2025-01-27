@@ -1,24 +1,23 @@
 import React, { JSX } from "react";
 
 export type TChatHistory = {
-  role: "user" | "model";
-  message: string | JSX.Element;
-  type?: "loading";
+  [key: string]: any;
 };
 export type TChatFormProps = {
-  chatHistory: TChatHistory[];
-  setChatHistory: React.Dispatch<React.SetStateAction<TChatHistory[]>>;
-  generateChatbotResponse: (chatHistory: TChatHistory[]) => void;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  input: string;
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 export type TMessageProps = {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 export type TChatMsgProps = {
-  chatHistory: TChatHistory[];
+  messages: any[];
+  isLoading: boolean;
 };
 
 export type TChatbotProps = {
-  role: "user" | "model";
+  role: "user" | "assistant";
   parts: {
     text: string | JSX.Element;
   }[];

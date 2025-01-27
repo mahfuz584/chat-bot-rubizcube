@@ -1,4 +1,4 @@
-import ChatBot from "@/components/shared/Chatbot";
+import ChatBot from "@/components/home/Chatbot";
 import Navbar from "@/components/shared/Navbar";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/providers/Theme/ThemeProvider";
