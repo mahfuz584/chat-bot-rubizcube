@@ -12,7 +12,6 @@ const ChatbotBox: React.FC<TMessageProps> = ({ setIsOpen }) => {
   const chatBodyRef = useRef<HTMLDivElement>(null);
   const { messages, input, handleInputChange, handleSubmit, isLoading } =
     useChat();
-  console.log(messages);
 
   const handleMinimize = () => {
     setIsMinimized(!isMinimized);
@@ -86,6 +85,7 @@ const ChatbotBox: React.FC<TMessageProps> = ({ setIsOpen }) => {
         </div>
         {/* Chat Form */}
         <ChatForm
+          isLoading={isLoading}
           handleSubmit={handleSubmit}
           input={input}
           handleInputChange={handleInputChange}

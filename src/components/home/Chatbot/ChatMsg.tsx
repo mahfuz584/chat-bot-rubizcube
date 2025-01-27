@@ -1,7 +1,7 @@
 import { TChatMsgProps } from "@/propsTypes";
 import React from "react";
 import { RiRobot2Fill } from "react-icons/ri";
-const ChatMsg: React.FC<TChatMsgProps> = ({ messages, isLoading }) => {
+const ChatMsg: React.FC<TChatMsgProps> = ({ messages }) => {
   return (
     <div>
       {messages.map(({ content, role }, index) => (
@@ -27,15 +27,16 @@ const ChatMsg: React.FC<TChatMsgProps> = ({ messages, isLoading }) => {
                 : "bg-[#F6F2FF] text-gray-900 rounded-tl-none rounded-tr-lg rounded-br-lg rounded-bl-2xl"
             } break-words`}
           >
-            {isLoading && role === "assistant" ? (
+            {/* {isLoading && role === "assistant" ? (
               <div className="flex items-center justify-center space-x-2 pt-2 pb-4">
-                <div className="dot size-1.5 bg-brandColor rounded-full animate-vertical-ping"></div>
+                <div className="dot size-1.5 bg-brandColor rounded-full animate-vertical-ping" />
                 <div className="dot size-1.5 bg-brandColor rounded-full animate-vertical-ping delay-200" />
                 <div className="dot size-1.5 bg-brandColor rounded-full animate-vertical-ping delay-400" />
               </div>
             ) : (
               <p className="py-2">{content}</p>
-            )}
+            )} */}
+            <p className="py-2">{content}</p>
           </div>
         </div>
       ))}

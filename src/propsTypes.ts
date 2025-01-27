@@ -4,6 +4,7 @@ export type TChatHistory = {
   [key: string]: any;
 };
 export type TChatFormProps = {
+  isLoading: boolean;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   input: string;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
